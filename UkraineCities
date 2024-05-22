@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+class Program
+{
+    static Dictionary<string, Dictionary<string, int>> cities = new Dictionary<string, Dictionary<string, int>>()
+    {
+        { "Kyiv", new Dictionary<string, int>{{"Chernihiv", 140}, {"Zhytomyr", 140}, {"Poltava", 340}}},
+        { "Chernihiv", new Dictionary<string, int>{{"Kyiv", 140}, {"Sumy", 160}}},
+        { "Zhytomyr", new Dictionary<string, int>{{"Kyiv", 140}, {"Vinnytsia", 120}}},
+        { "Poltava", new Dictionary<string, int>{{"Kyiv", 340}, {"Kharkiv", 140}}},
+        { "Vinnytsia", new Dictionary<string, int>{{"Zhytomyr", 120}, {"Khmelnytskyi", 120}}},
+        { "Sumy", new Dictionary<string, int>{{"Chernihiv", 160}, {"Kharkiv", 180}}},
+        { "Kharkiv", new Dictionary<string, int>{{"Poltava", 140}, {"Sumy", 180}}},
+        { "Khmelnytskyi", new Dictionary<string, int>{{"Vinnytsia", 120}, {"Lviv", 260}}},
+        { "Lviv", new Dictionary<string, int>{{"Khmelnytskyi", 260}, {"Ternopil", 130}}},
+        { "Ternopil", new Dictionary<string, int>{{"Lviv", 130}}}
+    };
+
+    static (List<string> path, int totalDistance) FindShortestPath(string start, string end)
+    {
+        var shortestPaths = new Dictionary<string, (int distance, string previous)>();
+        var priorityQueue = new SortedSet<(int distance, string city)>();
+
+        foreach (var city in cities.Keys)
+        {
+            shortestPaths[city] = (int.MaxValue, null);
+        }
+
+        shortestPaths[start] = (0, null);
+        priorityQueue.Add((0, start));
+
+        while (priorityQueue.Any())
+        {
+            var (currentDistance, currentCity) = priorityQueue.Min();
+            priorityQueue.Remove(priorityQueue.Min());
+
+            if (currentCity == end)
+            {
+                break;
+            }
+
+            foreach (var (neighbor, distance) in cities[currentCity])
+            {
+                var newDistance = currentDistance + distance;
+                if (newDistance < shortestPaths[neighbor].distance)
+                {
+                    priorityQueue.Remove((shortestPaths[neighbor].distance, neighbor));
+                    shortestPaths[neighbor] = (newDistance, currentCity);
+                    priorityQueue.Add((newDistance, neighbor));
+                }
+            }
+        }
+
+        var path = new List<string>();
+        var step = end;
+        var totalDistance = shortestPaths[end].distance;
+
+        while (step != null)
+        {
+            path.Add(step);
+            step = shortestPaths[step].previous;
+        }
+
+        path.Reverse();
+        return (path, totalDistance);
+    }
+
+    static void PrintCities()
+    {
+        foreach (var city in cities.Keys)
+        {
+            Console.WriteLine(city);
+        }
+    }
+
+    static async Task Main(string[] args)
+    {
+        PrintCities();
+        Console.Write("\nEnter the start city: ");
+        string startCity = Console.ReadLine();
+        Console.Clear();
+
+        PrintCities();
+        Console.Write("\nEnter the end city: ");
+        string endCity = Console.ReadLine();
+        Console.Clear();
+
+        if (!cities.ContainsKey(startCity) || !cities.ContainsKey(endCity))
+        {
+            Console.WriteLine("Incorrect city name input.");
+            return;
+        }
+
+        var task = Task.Run(() => FindShortestPath(startCity, endCity));
+        var (shortestPath, totalDistance) = await task;
+
+        Console.WriteLine("\nShortest route from {0} to {1}: {2}", startCity, endCity, string.Join(" -> ", shortestPath));
+        Console.WriteLine($"\nTotal shortest distance is {totalDistance}");
+    }
+}
