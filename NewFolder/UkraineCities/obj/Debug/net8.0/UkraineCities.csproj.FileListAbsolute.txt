@@ -1,0 +1,14 @@
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.GeneratedMSBuildEditorConfig.editorconfig
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.AssemblyInfoInputs.cache
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.AssemblyInfo.cs
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.csproj.CoreCompileInputs.cache
+F:\study\cLessons\UkraineCities\UkraineCities\bin\Debug\net8.0\UkraineCities.exe
+F:\study\cLessons\UkraineCities\UkraineCities\bin\Debug\net8.0\UkraineCities.deps.json
+F:\study\cLessons\UkraineCities\UkraineCities\bin\Debug\net8.0\UkraineCities.runtimeconfig.json
+F:\study\cLessons\UkraineCities\UkraineCities\bin\Debug\net8.0\UkraineCities.dll
+F:\study\cLessons\UkraineCities\UkraineCities\bin\Debug\net8.0\UkraineCities.pdb
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.dll
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\refint\UkraineCities.dll
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.pdb
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\UkraineCities.genruntimeconfig.cache
+F:\study\cLessons\UkraineCities\UkraineCities\obj\Debug\net8.0\ref\UkraineCities.dll
